@@ -1,0 +1,11 @@
+image: python:3.12
+
+stages:
+  - test
+
+tests:
+  stage: test
+  script:
+    - pip install hatch
+    - hatch test --cover
+  coverage: '/TOTAL.*\s+(\d+%)$/'
