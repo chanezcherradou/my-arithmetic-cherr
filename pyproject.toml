@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling","hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -32,7 +32,7 @@ Issues = "https://github.com/U.N. Owen/my-arithmetic-cherr/issues"
 Source = "https://github.com/U.N. Owen/my-arithmetic-cherr"
 
 [tool.hatch.version]
-path = "src/my_arithmetic_cherr/__about__.py"
+source ="vcs"
 
 [tool.hatch.envs.types]
 extra-dependencies = [
