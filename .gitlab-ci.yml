@@ -1,7 +1,11 @@
 image: python:3.12
 
+variables:
+  GIT_DEPTH: 0   # récupérer tout l'historique et les tags (nécessaire pour hatch-vcs)
+
 stages:
   - test
+  - deploy
 
 tests:
   stage: test
@@ -9,3 +13,23 @@ tests:
     - pip install hatch
     - hatch test --cover
   coverage: '/TOTAL.*\s+(\d+%)$/'
+
+deploy-stable:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - pip install hatch
+    - hatch build
+    - echo "my-arithmetic-cherr deployment on stable servers"
+    - ls -l dist/
+
+deploy-develop:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+  script:
+    - pip install hatch
+    - hatch build
+    - echo "my-arithmetic-cherr deployment on develop servers"
+    - ls -l dist/
